@@ -5,13 +5,15 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\GenderEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +21,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'mobile',
         'name',
-        'email',
+        'username',
         'password',
+        'gender',
     ];
 
     /**
@@ -30,9 +34,24 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'mobile',
         'password',
-        'remember_token',
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 
     /**
      * The attributes that should be cast.
@@ -42,4 +61,20 @@ class User extends Authenticatable
     protected $casts = [
         'gender' => GenderEnum::class,
     ];
+
+    public function authenticationCodes(): HasMany
+    {
+        return $this->hasMany(AuthenticationCode::class);
+    }
+
+    public function avatar(): HasOne
+    {
+        return $this->hasOne(Avatar::class)->latest();
+    }
+
+    public function avatars(): HasMany
+    {
+        return $this->hasMany(Avatar::class)->orderBy('created_at', 'desc');
+    }
+
 }

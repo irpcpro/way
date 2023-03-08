@@ -2,8 +2,8 @@
 
 namespace App\Enums;
 
-enum GenderEnum:string
+enum GenderEnum:int
 {
-    case MAN = "man";
-    case WOMAN = "woman";
+    case MAN = 1;
+    case WOMAN = 0;
 }

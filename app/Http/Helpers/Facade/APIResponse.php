@@ -2,6 +2,8 @@
 
 namespace App\Http\Helpers\Facade;
 
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 class APIResponse
 {
 
@@ -33,12 +35,18 @@ class APIResponse
      */
     public function setExtra(array|string|null $data): static
     {
-        $this->extra = $data;
+        $this->extra[] = $data;
         return $this;
     }
 
     public function send()
     {
+        throw new HttpResponseException(
+            $this->get()
+        );
+    }
+
+    public function get(){
         $out = [
             'message' => $this->message,
             'success' => $this->success,
@@ -46,8 +54,10 @@ class APIResponse
             'data' => $this->data
         ];
 
-        if(!empty($this->extra))
-            $out = array_merge($out, $this->extra);
+        if(!empty($this->extra)) {
+            $flattened_array = array_reduce($this->extra, 'array_merge', []);
+            $out = array_merge($out, $flattened_array);
+        }
 
         return response()->json($out, $this->error_code);
     }

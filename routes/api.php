@@ -1,22 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-//
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
 
 
 Route::namespace('V1')->prefix('v1')->group(function () {
@@ -25,10 +10,28 @@ Route::namespace('V1')->prefix('v1')->group(function () {
         ->namespace('Authentication')
         ->controller('AuthenticationController')
         ->group(function () {
-            Route::post('register', 'register');
-            Route::post('login', 'login');
+            Route::post('send_code', 'send_code');
+            Route::post('confirmation_code', 'confirmation_code');
         });
 
+    // private routes
+    Route::middleware('auth:api')->group(function(){
+        // user info
+        Route::prefix('user')
+            ->namespace('User')
+            ->controller('UserController')
+            ->group(function(){
+                Route::put('update', 'update');
+                Route::post('set_avatar', 'set_avatar');
+                Route::get('get_last_avatar', 'get_last_avatar');
+                Route::get('get_avatars', 'get_avatars');
+                Route::delete('delete_avatar/{id}', 'delete_avatar');
+            });
+
+
+
+
+
+    });
 
 });
-

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class registerRequest extends AppRequest
+class SendCodeRequest extends AppRequest
 {
 
     public function authorize(): bool
@@ -18,17 +18,16 @@ class registerRequest extends AppRequest
     public function rules(): array
     {
         return [
-            'mobile' => ['required', 'bail', 'unique:users,mobile', 'regex:' . REGEX_MOBILE],
-            'name' => ['required', 'string']
+            'mobile' => ['required', 'bail', 'regex:' . REGEX_MOBILE],
+            'name' => ['string']
         ];
     }
 
     public function messages()
     {
         return [
-            'mobile.required' => 'شماره همراه الزامی است',
-            'mobile.regex' => 'فرمت شماره همراه اشتباه است',
-            'name.required' => 'نام الزامی است',
+            'mobile.required' => 'mobile number is required.',
+            'mobile.regex' => 'mobile format is incorrect.',
         ];
     }
 
