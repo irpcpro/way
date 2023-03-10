@@ -6,30 +6,45 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('V1')->prefix('v1')->group(function () {
     // authentication
-    Route::prefix('auth')
-        ->namespace('Authentication')
-        ->controller('AuthenticationController')
-        ->group(function () {
-            Route::post('send_code', 'send_code');
-            Route::post('confirmation_code', 'confirmation_code');
-        });
+    Route::prefix('auth')->namespace('Authentication')->controller('AuthenticationController')->group(function () {
+        Route::post('send_code', 'send_code');
+        Route::post('confirmation_code', 'confirmation_code');
+    });
+
 
     // private routes
     Route::middleware('auth:api')->group(function(){
-        // user info
-        Route::prefix('user')
-            ->namespace('User')
-            ->controller('UserController')
-            ->group(function(){
-                Route::put('update', 'update');
-                Route::post('set_avatar', 'set_avatar');
-                Route::get('get_last_avatar', 'get_last_avatar');
-                Route::get('get_avatars', 'get_avatars');
-                Route::delete('delete_avatar/{id}', 'delete_avatar');
-            });
 
+        // user
+        Route::prefix('user')->namespace('User')->controller('UserController')->group(function(){
+            // get current user details
+        });
 
+        // info
+        Route::prefix('user-info')->namespace('UserInfo')->controller('UserInfoController')->group(function(){
+            Route::put('update', 'update');
+        });
 
+        // avatars
+        Route::prefix('avatar')->namespace('Avatar')->controller('AvatarController')->group(function(){
+            Route::post('set_avatar', 'set_avatar');
+            Route::get('get_last_avatar', 'get_last_avatar');
+            Route::get('get_avatars', 'get_avatars');
+            Route::delete('delete_avatar/{avatar}', 'delete_avatar');
+        });
+
+        // search
+        Route::prefix('search-user')->namespace('SearchUser')->controller('SearchUserController')->group(function(){
+            Route::get('search', 'search');
+        });
+
+        // contacts
+        Route::prefix('contacts')->namespace('Contacts')->controller('ContactsController')->group(function(){
+            Route::get('list', 'list');
+            Route::post('add', 'add');
+            Route::delete('delete/{contact}', 'delete');
+            Route::put('update/{contact}', 'update');
+        });
 
 
     });

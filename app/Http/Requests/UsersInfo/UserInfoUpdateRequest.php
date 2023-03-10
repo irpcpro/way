@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests\UsersInfo;
 
 use App\Enums\GenderEnum;
 use App\Http\Requests\AppRequest;
+use App\Rules\NameRule;
+use App\Rules\UsernameRule;
 use Illuminate\Validation\Rules\Enum;
 
-class UserUpdateRequest extends AppRequest
+class UserInfoUpdateRequest extends AppRequest
 {
 
     public function authorize(): bool
@@ -18,9 +20,11 @@ class UserUpdateRequest extends AppRequest
     {
         $current_user_id = auth()->user()->id;
         return [
-            'name' => '',
+            'name' => ['nullable', new NameRule],
             'gender' => [new Enum(GenderEnum::class)],
-            'username' => ['nullable', 'bail', 'unique:users,username,' . $current_user_id, 'max:' . USERNAME_LENGTH, 'regex:' . REGEX_USERNAME]
+//            'username' => ['nullable', 'bail', 'unique:users,username,' . $current_user_id, 'max:' . USERNAME_LENGTH, 'regex:' . REGEX_USERNAME]
+//            'username' => 'username|unique:users,username,' . $current_user_id
+            'username' => ['unique:users,username,' . $current_user_id, new UsernameRule]
         ];
     }
 
@@ -28,8 +32,6 @@ class UserUpdateRequest extends AppRequest
     {
         return [
             'gender' => 'value of gender in incorrect.',
-            'username.max' => 'username length should not be more than '.USERNAME_LENGTH.' characters.',
-            'username.regex' => 'the character of username should be just letter or specific characters.',
             'username.unique' => 'this username was taken.',
         ];
     }

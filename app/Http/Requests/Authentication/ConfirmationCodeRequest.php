@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Authentication;
 
 use App\Http\Requests\AppRequest;
+use App\Rules\MobileRule;
 
 
 class ConfirmationCodeRequest extends AppRequest
@@ -16,7 +17,7 @@ class ConfirmationCodeRequest extends AppRequest
     public function rules(): array
     {
         return [
-            'mobile' => ['required', 'bail', 'exists:users,mobile', 'regex:' . REGEX_MOBILE],
+            'mobile' => ['required', 'bail', 'exists:users,mobile', new MobileRule],
             'code' => ['required', 'string', 'max:' . AUTH_CODE_LENGTH]
         ];
     }
@@ -25,7 +26,6 @@ class ConfirmationCodeRequest extends AppRequest
     {
         return [
             'mobile.required' => 'mobile number is required.',
-            'mobile.regex' => 'mobile format is incorrect.',
             'mobile.exists' => 'mobile number not found.',
             'code.required' => 'code is required.',
             'code.max' => 'code length must be ' . AUTH_CODE_LENGTH . ' character.',

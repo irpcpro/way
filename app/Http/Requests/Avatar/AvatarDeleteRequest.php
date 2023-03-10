@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests\Avatar;
 
 use App\Http\Requests\AppRequest;
+use function auth;
 
-class UserDeleteAvatarRequest extends AppRequest
+class AvatarDeleteRequest extends AppRequest
 {
 
     public string $error_message_authorization = 'this avatar id is not for current user.';
@@ -12,14 +13,14 @@ class UserDeleteAvatarRequest extends AppRequest
     public function authorize(): bool
     {
         $current_user_id = auth()->user()->id;
-        $avatar_user_id = $this->route('id')->user_id;
+        $avatar_user_id = $this->route('avatar')->user_id;
         return ($current_user_id == $avatar_user_id);
     }
 
     protected function prepareForValidation()
     {
         $this->merge([
-            'id' => $this->route('id')->id
+            'id' => $this->route('avatar')->id
         ]);
     }
 

@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\GenderEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -35,6 +37,9 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $hidden = [
         'mobile',
+        'remember_token',
+        'created_at',
+        'updated_at',
         'password',
     ];
 
@@ -62,6 +67,12 @@ class User extends Authenticatable implements JWTSubject
         'gender' => GenderEnum::class,
     ];
 
+    public function getNameAttribute()
+    {
+        $name = $this->attributes['name'];
+        return $name != null ? $name : USERNAME_ANONYMOUS;
+    }
+
     public function authenticationCodes(): HasMany
     {
         return $this->hasMany(AuthenticationCode::class);
@@ -75,6 +86,11 @@ class User extends Authenticatable implements JWTSubject
     public function avatars(): HasMany
     {
         return $this->hasMany(Avatar::class)->orderBy('created_at', 'desc');
+    }
+
+    public function contacts(): hasMany
+    {
+        return $this->hasMany(Contact::class, 'user_id', 'id');
     }
 
 }

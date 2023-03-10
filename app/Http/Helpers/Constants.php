@@ -5,13 +5,11 @@ const REGEX_MOBILE = "/^09[0-9]{9}$/";
 const REGEX_USERNAME = '/^[A-Za-z0-9\.\_]+$/';
 const GENERAL_DATE_TIME_FORMAT = 'Y/m/d - H:i:s';
 
-const USERNAME_LENGTH = 15;
-
-const AUTH_TOKEN_NAME = 'authToken';
+const NAME_LENGTH = 50;
+const USERNAME_LENGTH = 20;
 const AUTH_CODE_LENGTH = 5;
 const AUTH_CODE_EXPIRE_TIME = 90;
 const AUTH_CODE_FAKE = true;
-
 const UPLOAD_DIR_NAME = '/uploads';
 const AVATAR_DIR_ACCESS = 0755;
 const AVATAR_FINAL_EXT = 'jpg';
@@ -27,3 +25,4 @@ const AVATAR_MIMES = [
     'png'
 ];
 const AVATAR_DIR_NAME = UPLOAD_DIR_NAME . '/avatar';
+const USERNAME_ANONYMOUS = 'Anonymous';

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Authentication;
 
 use App\Http\Requests\AppRequest;
+use App\Rules\MobileRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -18,7 +19,7 @@ class SendCodeRequest extends AppRequest
     public function rules(): array
     {
         return [
-            'mobile' => ['required', 'bail', 'regex:' . REGEX_MOBILE],
+            'mobile' => ['required', 'bail', new MobileRule],
             'name' => ['string']
         ];
     }

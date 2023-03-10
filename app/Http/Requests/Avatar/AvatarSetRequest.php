@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests\Avatar;
 
 use App\Http\Requests\AppRequest;
+use const AVATAR_MIN_HEIGHT;
+use const AVATAR_MIN_WiDTH;
+use const AVATAR_SIZE;
 
-class UserSetAvatarRequest extends AppRequest
+class AvatarSetRequest extends AppRequest
 {
 
     public $mimes;

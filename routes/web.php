@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
+//    $user = \App\Models\User::find(1)->first();
+//    dd($user->contacts()->get()->toArray());
 });
