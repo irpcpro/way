@@ -11,30 +11,30 @@ class ContactsDeleteRequest extends AppRequest
 
     public function authorize(): bool
     {
-        $current_user_id = auth()->user()->id;
-        $contact = $this->route('contact')->user_id;
-        return ($current_user_id == $contact);
+        $current_id_user = auth()->user()->id_user;
+        $contact_id_user = $this->route('contact')->id_user;
+        return ($current_id_user == $contact_id_user);
     }
 
     protected function prepareForValidation()
     {
         $this->merge([
-            'id' => $this->route('contact')->id
+            'id_contact' => $this->route('contact')->id_contact
         ]);
     }
 
     public function rules(): array
     {
         return [
-            'id' => ['required', 'bail', 'exists:contacts'],
+            'id_contact' => ['required', 'bail', 'exists:contacts,id_contact'],
         ];
     }
 
     public function messages()
     {
         return [
-            'id.required' => 'contact id is required.',
-            'id.exists' => 'contact id not exists.',
+            'id_contact.required' => 'contact id is required.',
+            'id_contact.exists' => 'contact id not exists.',
         ];
     }
 

@@ -29,14 +29,14 @@ class ContactUserInfoResource extends JsonResource
 
         // check show mobile conditions
         $_mobile = null;
-        $get_contact_user = User::where('id', $this->contact_user_id)->first();
+        $get_contact_user = User::where('id_user', $this->contact_user_id)->first();
 
         if($this->contact_user_mobile){
             $_mobile = $get_contact_user->mobile;
         }else{
             $condition_2 = $this->whereHas('contact_contacts', function($query) use ($current_user){
                 $query->where([
-                    ['contact_user_id', '=', $current_user->id],
+                    ['contact_user_id', '=', $current_user->id_user],
                     ['contact_user_mobile', '=', true]
                 ]);
             })->exists();
@@ -47,8 +47,8 @@ class ContactUserInfoResource extends JsonResource
         $_name = $this->contact_user_name != null ? $this->contact_user_name : $get_contact_user->name;
 
         $data = [
-            'id' => $this->id,
-            'user_id' => $get_contact_user->id,
+            'id_contact' => $this->id_contact,
+            'id_user' => $get_contact_user->id_user,
             'name' => $_name,
             'username' => $get_contact_user->username?? null,
             'gender' => $get_contact_user->gender?->value,

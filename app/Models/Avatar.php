@@ -10,13 +10,15 @@ class Avatar extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_avatar';
+
     protected $fillable = [
         'name',
         'extension',
         'path',
         'width',
         'height',
-        'user_id',
+        'id_user',
     ];
 
     protected $casts = [
@@ -29,7 +31,7 @@ class Avatar extends Model
         'name',
         'extension',
         'path',
-        'user_id',
+        'id_user',
         'full_name',
         'full_path',
         'updated_at'

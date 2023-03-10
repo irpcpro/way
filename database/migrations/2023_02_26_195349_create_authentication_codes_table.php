@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('authentication_codes', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->id('id_authentication_code');
+
+            $table->unsignedBigInteger('id_user');
             $table->string('code');
             $table->boolean('expired')->default(0);
             $table->timestamps();

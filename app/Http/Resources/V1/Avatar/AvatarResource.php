@@ -18,8 +18,8 @@ class AvatarResource extends JsonResource
             return [];
 
         return [
+            'id_avatar' => $this->id_avatar,
             'url' => $this->url,
-            'id' => $this->id,
             'width' => $this->width,
             'height' => $this->height,
             'created_at' => $this->created_at,

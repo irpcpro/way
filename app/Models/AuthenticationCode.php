@@ -11,8 +11,10 @@ class AuthenticationCode extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_authentication_code';
+
     protected $fillable = [
-        'user_id',
+        'id_user',
         'code',
         'expired',
     ];
@@ -30,7 +32,7 @@ class AuthenticationCode extends Model
 
     public function user(): HasOne
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id_user', 'id_user');
     }
 
 }

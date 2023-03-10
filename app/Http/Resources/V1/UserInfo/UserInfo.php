@@ -17,7 +17,7 @@ class UserInfo extends JsonResource
     {
         parent::__construct($resource);
         $this->current_user = auth()->user();
-        if($this->resource->id == $this->current_user->id)
+        if($this->resource->id_user == $this->current_user->id_user)
             $this->user_is_current_user = true;
 
         $this->request_mobile = $request_mobile;
@@ -31,7 +31,7 @@ class UserInfo extends JsonResource
     public function toArray(Request $request): array
     {
         $data = [
-            'id' => $this->id,
+            'id_user' => $this->id_user,
             'name' => $this->name,
             'username' => $this->username?? null,
             'gender' => $this->gender?->value,
@@ -45,9 +45,9 @@ class UserInfo extends JsonResource
             $data['name'] = $this->name;
         }else{
             // if not, get current_user contact where user is exists on
-            $current_user_contact = $this->current_user->contacts()->where('contact_user_id', $this->id)->first();
+            $current_user_contact = $this->current_user->contacts()->where('contact_user_id', $this->id_user)->first();
             // get the contacts of user where current_user is exists on
-            $user_contacts = $this->contacts()->where('contact_user_id', $this->current_user->id)->first();
+            $user_contacts = $this->contacts()->where('contact_user_id', $this->current_user->id_user)->first();
 
             // if user has current_user in his contact with mobile, show mobile
             if($user_contacts !== null && $user_contacts->contact_user_mobile)

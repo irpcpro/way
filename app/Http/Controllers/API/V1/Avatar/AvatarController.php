@@ -44,7 +44,7 @@ class AvatarController extends Controller
             'path' => $path,
             'width' => AVATAR_FINAL_WIDTH,
             'height' => AVATAR_FINAL_HEIGHT,
-            'user_id' => $current_user->id,
+            'id_user' => $current_user->id_user,
         ]);
 
         $data = new AvatarResource($current_user->avatar);

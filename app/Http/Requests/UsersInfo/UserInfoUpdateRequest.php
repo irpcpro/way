@@ -18,13 +18,11 @@ class UserInfoUpdateRequest extends AppRequest
 
     public function rules(): array
     {
-        $current_user_id = auth()->user()->id;
+        $current_id_user = auth()->user()->id_user;
         return [
             'name' => ['nullable', new NameRule],
             'gender' => [new Enum(GenderEnum::class)],
-//            'username' => ['nullable', 'bail', 'unique:users,username,' . $current_user_id, 'max:' . USERNAME_LENGTH, 'regex:' . REGEX_USERNAME]
-//            'username' => 'username|unique:users,username,' . $current_user_id
-            'username' => ['unique:users,username,' . $current_user_id, new UsernameRule]
+            'username' => ['unique:users,username,' . $current_id_user . ',id_user', new UsernameRule]
         ];
     }
 

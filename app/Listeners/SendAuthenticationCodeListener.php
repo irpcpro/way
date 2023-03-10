@@ -24,6 +24,7 @@ class SendAuthenticationCodeListener
         $get_code = (new AuthenticationCodeController($event->user))->getCode();
         if($get_code != false){
             // send code
+            // TODO - set sms Service to send code
             // SMS($get_code)
         }
     }

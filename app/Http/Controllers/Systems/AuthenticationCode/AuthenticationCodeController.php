@@ -29,12 +29,12 @@ class AuthenticationCodeController
         $code = $this->generateCode();
 
         // store in authentication code table
-        $status = AuthenticationCode::create([
-            'user_id' => $this->user->id,
+        $authenticationCode = AuthenticationCode::create([
+            'id_user' => $this->user->id_user,
             'code' => $code,
         ]);
 
-        return (isset($status->id) && $status->id > 0) ? $code : false;
+        return (isset($authenticationCode->id_authentication_code) && $authenticationCode->id_authentication_code > 0) ? $code : false;
     }
 
 }

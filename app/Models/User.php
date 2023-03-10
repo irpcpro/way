@@ -17,6 +17,8 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
+    protected $primaryKey = 'id_user';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -75,22 +77,22 @@ class User extends Authenticatable implements JWTSubject
 
     public function authenticationCodes(): HasMany
     {
-        return $this->hasMany(AuthenticationCode::class);
+        return $this->hasMany(AuthenticationCode::class, 'id_user', 'id_user');
     }
 
     public function avatar(): HasOne
     {
-        return $this->hasOne(Avatar::class)->latest();
+        return $this->hasOne(Avatar::class, 'id_user', 'id_user')->latest();
     }
 
     public function avatars(): HasMany
     {
-        return $this->hasMany(Avatar::class)->orderBy('created_at', 'desc');
+        return $this->hasMany(Avatar::class, 'id_user', 'id_user')->orderBy('created_at', 'desc');
     }
 
     public function contacts(): hasMany
     {
-        return $this->hasMany(Contact::class, 'user_id', 'id');
+        return $this->hasMany(Contact::class, 'id_user', 'id_user');
     }
 
 }

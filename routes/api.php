@@ -42,8 +42,8 @@ Route::namespace('V1')->prefix('v1')->group(function () {
         Route::prefix('contacts')->namespace('Contacts')->controller('ContactsController')->group(function(){
             Route::get('list', 'list');
             Route::post('add', 'add');
-            Route::delete('delete/{contact}', 'delete');
             Route::put('update/{contact}', 'update');
+            Route::delete('delete/{contact}', 'delete');
         });
 
 

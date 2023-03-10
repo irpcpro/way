@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Contacts;
 
 use App\Http\Requests\AppRequest;
+use App\Rules\MobileRule;
 use App\Rules\NameRule;
 
 class ContactsAddRequest extends AppRequest
@@ -16,8 +17,8 @@ class ContactsAddRequest extends AppRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'exists:users,id'],
-            "mobile" => ['nullable', "exists:users,mobile"],
+            'id_user' => ['required', 'exists:users,id_user'],
+            "mobile" => ['nullable', "exists:users,mobile", new MobileRule],
             'name' => ['nullable', new NameRule],
         ];
     }
@@ -25,8 +26,8 @@ class ContactsAddRequest extends AppRequest
     public function messages()
     {
         return [
-            'user_id.required' => 'user id should be entered.',
-            'user_id.exists' => "user id doesn't exists.",
+            'id_user.required' => 'user id should be entered.',
+            'id_user.exists' => "user id doesn't exists.",
             'mobile.exists' => 'mobile number not exists.',
         ];
     }
