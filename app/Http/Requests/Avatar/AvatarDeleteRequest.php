@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Avatar;
 
 use App\Http\Requests\AppRequest;
-use function auth;
 
 class AvatarDeleteRequest extends AppRequest
 {

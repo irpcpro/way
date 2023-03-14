@@ -46,6 +46,11 @@ Route::namespace('V1')->prefix('v1')->group(function () {
             Route::delete('delete/{contact}', 'delete');
         });
 
+        // chat
+        Route::prefix('chat')->namespace('Chat')->controller('ChatController')->group(function(){
+            Route::post('send-message', 'sendMessage');
+
+        });
 
     });
 

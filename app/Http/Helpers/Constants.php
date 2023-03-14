@@ -26,3 +26,5 @@ const AVATAR_MIMES = [
 ];
 const AVATAR_DIR_NAME = UPLOAD_DIR_NAME . '/avatar';
 const USERNAME_ANONYMOUS = 'Anonymous';
+
+const CHAT_MESSAGE_CHARACTER_LIMIT = '500';

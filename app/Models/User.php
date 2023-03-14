@@ -95,4 +95,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Contact::class, 'id_user', 'id_user');
     }
 
+    public function message_hook_member(): HasMany
+    {
+        return $this->hasMany(MessageHookMembers::class, 'id_user', 'id_user');
+    }
+
 }
