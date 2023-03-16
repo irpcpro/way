@@ -57,11 +57,9 @@ class Handler extends ExceptionHandler
             $message = $this->convertExceptionToArray($e)['message'];
         }
         $error_code = $this->isHttpException($e) ? $e->getStatusCode() : 500;
+        $getResponse = APIResponse($message, $error_code, false)->get();
         return new JsonResponse(
-            [
-                'message' => $message,
-                'error_code' => $error_code,
-            ],
+            $getResponse->original,
             $error_code,
             $this->isHttpException($e) ? $e->getHeaders() : [],
             JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES

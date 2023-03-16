@@ -26,4 +26,9 @@ class MessageHook extends Model
         return $this->hasMany(MessageHookMembers::class, 'id_message_hook', 'id_message_hook');
     }
 
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'id_message_hook', 'id_message_hook');
+    }
+
 }

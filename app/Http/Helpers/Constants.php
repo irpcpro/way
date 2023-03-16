@@ -28,3 +28,8 @@ const AVATAR_DIR_NAME = UPLOAD_DIR_NAME . '/avatar';
 const USERNAME_ANONYMOUS = 'Anonymous';
 
 const CHAT_MESSAGE_CHARACTER_LIMIT = '500';
+
+const MODELS_CREATED_AT_DEFAULT_FORMAT = 'Y-m-d H:i:s';
+const MODELS_UPDATED_AT_DEFAULT_FORMAT = 'Y-m-d H:i:s';
+const MODELS_CREATED_AT_FORMAT = 'Y-m-d H:i:s';
+const MODELS_UPDATED_AT_FORMAT = 'Y-m-d H:i:s';

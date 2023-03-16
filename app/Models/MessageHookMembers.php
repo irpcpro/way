@@ -22,4 +22,9 @@ class MessageHookMembers extends Model
         return $this->hasOne(MessageHook::class, 'id_message_hook', 'id_message_hook');
     }
 
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'id_user', 'id_user');
+    }
+
 }
