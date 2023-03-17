@@ -24,7 +24,7 @@ class ChatController extends Controller
 
     private function createHooksAndMembers(MessageHookTypeEnum $msgHookType, array $id_users): int
     {
-        // create message hook.
+        // create message hook
         $message_hook = MessageHook::create([
             'type' => $msgHookType
         ]);
