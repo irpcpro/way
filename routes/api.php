@@ -49,8 +49,11 @@ Route::namespace('V1')->prefix('v1')->group(function () {
         // chat
         Route::prefix('chat')->namespace('Chat')->controller('ChatController')->group(function(){
             Route::post('send-message', 'sendMessage');
+            Route::get('get-messages/{message_hook}/{offset?}', 'getMessages')->where([
+                'message_hook' => '[0-9]+',
+                'offset' => '[0-9]+'
+            ]);
             Route::get('get-list-chats', 'getListChats');
-
         });
 
     });

@@ -5,15 +5,15 @@ namespace App\Http\Controllers\API\V1\Chat;
 use App\Enums\MessageHookTypeEnum;
 use App\Enums\MessageTypeEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Chat\GetMessagesRequest;
 use App\Http\Requests\Chat\SendMessageRequest;
+use App\Http\Resources\V1\Chat\GetMessagesCollection;
 use App\Http\Resources\V1\Chat\ListChatsResource;
-use App\Http\Resources\V1\Chat\SendMessageResource;
+use App\Http\Resources\V1\Chat\MessageResource;
 use App\Models\Message;
 use App\Models\MessageHook;
 use App\Models\MessageHookMembers;
-use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -70,7 +70,7 @@ class ChatController extends Controller
             // TODO - add event for send Broadcast and PushNotification
 
             // set data to response
-            $data = new SendMessageResource($message);
+            $data = new MessageResource($message);
             $data = $data->toArray($request);
             $response = APIResponse('message sent.', 200, true)->setData($data)->get();
             DB::commit();
@@ -84,6 +84,24 @@ class ChatController extends Controller
         throw new HttpResponseException(
             $response
         );
+    }
+
+    public function getMessages(GetMessagesRequest $request, MessageHook $message_hook, $offset = null)
+    {
+        // get messages
+        $messages = Message::query();
+        // if there was an offset, get messages before (oldest) offset
+        if(isset($offset) && $offset !== null)
+            $messages = $messages->where('id_message', '<', $offset);
+        $messages = $messages->where('id_message_hook', $message_hook->id_message_hook);
+        $messages = $messages->latest();
+        $messages = $messages->take(PAGINATE_MESSAGE_LOAD);
+        $messages = $messages->get();
+        $messages = new GetMessagesCollection($messages);
+        $messages = $messages->toArray($request);
+
+        // return response
+        APIResponse('messages received.', 200, true)->setData($messages)->send();
     }
 
     public function getListChats(Request $request)

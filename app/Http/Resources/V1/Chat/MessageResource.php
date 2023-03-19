@@ -6,7 +6,7 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SendMessageResource extends JsonResource
+class MessageResource extends JsonResource
 {
 
     public function __construct(Message $resource)
@@ -22,10 +22,13 @@ class SendMessageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id_message' => $this->id_message,
             'id_message_hook' => $this->id_message_hook,
             'id_user' => $this->id_user,
             'context' => $this->context,
             'type' => $this->type,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

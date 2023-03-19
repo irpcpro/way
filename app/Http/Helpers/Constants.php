@@ -33,3 +33,5 @@ const MODELS_CREATED_AT_DEFAULT_FORMAT = 'Y-m-d H:i:s';
 const MODELS_UPDATED_AT_DEFAULT_FORMAT = 'Y-m-d H:i:s';
 const MODELS_CREATED_AT_FORMAT = 'Y-m-d H:i:s';
 const MODELS_UPDATED_AT_FORMAT = 'Y-m-d H:i:s';
+
+const PAGINATE_MESSAGE_LOAD = 20;

@@ -27,12 +27,7 @@ class ListChatsResource extends JsonResource
         // get user member except current user
         $user_member = $this->message_hook_members->first();
         return [
-            'id_message_hook' => $message->id_message_hook,
-            'id_message' => $message->id_message,
-            'type' => $message->type,
-            'context' => $message->context,
-            'created_at' => $message->created_at,
-            'updated_at' => $message->updated_at,
+            'message' => (new MessageResource($message)),
             'user' => new UserInfo($user_member->user)
         ];
     }
