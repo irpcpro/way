@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\SendMessageToUserEvent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+    $msg = \App\Models\Message::where('id_message', 56)->first();
+    $user = \App\Models\User::where('id_user', 1)->first();
+
+    broadcast(new SendMessageToUserEvent($msg, $user));
 
 });
