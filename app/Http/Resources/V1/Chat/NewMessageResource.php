@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\V1\Chat;
 
-use App\Http\Resources\V1\UserInfo\UserInfo;
+use App\Http\Resources\V1\User\UserInfo;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

@@ -4,8 +4,7 @@ namespace App\Http\Controllers\API\V1\SearchUser;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchUser\SearchUserRequest;
-use App\Http\Resources\V1\ContactUser\ContactUserInfoResource;
-use App\Http\Resources\V1\UserInfo\UserInfo;
+use App\Http\Resources\V1\User\UserInfo;
 use App\Models\User;
 
 class SearchUserController extends Controller

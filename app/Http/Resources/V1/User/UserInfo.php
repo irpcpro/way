@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources\V1\UserInfo;
+namespace App\Http\Resources\V1\User;
 
 use App\Http\Resources\V1\Avatar\AvatarResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use function auth;
 
 class UserInfo extends JsonResource
 {

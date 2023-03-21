@@ -26,9 +26,14 @@ Route::namespace('V1')->prefix('v1')->group(function () {
             // get current user details
         });
 
-        // info
-        Route::prefix('user-info')->namespace('UserInfo')->controller('UserInfoController')->group(function(){
-            Route::put('update', 'update');
+        // user
+        Route::prefix('user')->namespace('User')->group(function(){
+            // info
+            Route::prefix('info')->controller('UserInfoController')->group(function(){
+                Route::get('/', 'get');
+                Route::put('update', 'update');
+            });
+
         });
 
         // avatars
