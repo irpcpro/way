@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\App;
 
-function api_response($message = 'خطایی رخ داده است', $success = false, $arr = [], $data = null, $error_code = 200){
+function api_response($message = 'something went wrong.', $success = false, $arr = [], $data = null, $error_code = 200){
     $out = [
         'message' => $message,
         'success' => $success,

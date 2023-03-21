@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Chat;
 
 use App\Enums\MessageHookTypeEnum;
 use App\Enums\MessageTypeEnum;
+use App\Events\SendMessageEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Chat\GetMessagesRequest;
 use App\Http\Requests\Chat\SendMessageRequest;
@@ -67,7 +68,8 @@ class ChatController extends Controller
                 'context' => $context,
             ]);
 
-            // TODO - add event for send Broadcast and PushNotification
+            // TODO - add event for send PushNotification
+            event(new SendMessageEvent($message));
 
             // set data to response
             $data = new MessageResource($message);

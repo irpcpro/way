@@ -39,8 +39,10 @@ return [
                 'host' => env('PUSHER_HOST') ?: 'api-'.env('PUSHER_APP_CLUSTER', 'mt1').'.pusher.com',
                 'port' => env('PUSHER_PORT', 443),
                 'scheme' => env('PUSHER_SCHEME', 'https'),
-                'encrypted' => true,
+                'encrypted' => false,
                 'useTLS' => env('PUSHER_SCHEME', 'https') === 'https',
+                //                'authEndpoint' => '/broadcasting/auth',
+//                'auth_endpoint' => '/my-custom-auth',
             ],
             'client_options' => [
                 // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html

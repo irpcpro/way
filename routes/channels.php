@@ -1,5 +1,6 @@
 <?php
 
+use App\Broadcasting\NewMessageToMessageHookChannel;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -13,16 +14,9 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-//Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-//    return (int) $user->id_user === (int) $id;
-//});
-
-Broadcast::channel('new_messages.user.{id_user}', function($user){
-    \Illuminate\Support\Facades\Log::error('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww - ' . \Carbon\Carbon::now());
-//    return (int) $user->id === (int) $userId;
-    return true;
-    return $user;
-});
-
-
+//Broadcast::channel(
+//    'new_messages.id_message_hook.{id_message_hook}',
+//    NewMessageToMessageHookChannel::class,
+//    ['guards' => ['api'], 'middleware' => 'auth:api']
+//);
 

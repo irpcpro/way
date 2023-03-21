@@ -14,6 +14,12 @@ Route::namespace('V1')->prefix('v1')->group(function () {
 
     // private routes
     Route::middleware('auth:api')->group(function(){
+        // websocket
+        Route::prefix('websocket')->namespace('Websocket')->controller('WebsocketController')->group(function(){
+            // authorization
+            Route::post('auth-new-messages', 'authNewMessages');
+
+        });
 
         // user
         Route::prefix('user')->namespace('User')->controller('UserController')->group(function(){
