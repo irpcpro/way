@@ -1,0 +1,20 @@
+{{websocket}}/app/{{app_key}}?protocol=7&client=js&version=7.0.6&flash=false
+
+
+join to message hook id:
+{
+  "event": "pusher:subscribe",
+  "data": {
+    "auth": "way_app_key:8825f77b9fc92402c8bfb0857d9472779073877bdb7240ea8e0ed6d8ff3baf19",
+    "channel": "private-new_messages.id_message_hook.22"
+  }
+}
+
+join to user:
+{
+  "event": "pusher:subscribe",
+  "data": {
+    "auth": "way_app_key:047141118689a01db37afc97bdd5599d04429470c2f72191e9f4dca2565ee6b8",
+    "channel": "private-user.1"
+  }
+}
