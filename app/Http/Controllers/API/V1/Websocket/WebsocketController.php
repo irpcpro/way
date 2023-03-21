@@ -14,11 +14,12 @@ class WebsocketController extends Controller
 {
 
     public string $app_id;
-    public string $channel_name_key = 'private-new_messages.id_message_hook.';
+    public string $channel_name_key;
 
     public function __construct()
     {
         $this->app_id = env('PUSHER_APP_ID');
+        $this->channel_name_key = SEND_TO_MEMBERS_MESSAGE_HOOK_PREFIX_CHANNEL_NAME . SEND_TO_MEMBERS_MESSAGE_HOOK_CHANNEL_NAME;
     }
 
     protected function channelNameMatchesPattern($channel, $pattern)

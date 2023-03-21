@@ -35,3 +35,7 @@ const MODELS_CREATED_AT_FORMAT = 'Y-m-d H:i:s';
 const MODELS_UPDATED_AT_FORMAT = 'Y-m-d H:i:s';
 
 const PAGINATE_MESSAGE_LOAD = 20;
+
+const SEND_TO_MEMBERS_MESSAGE_HOOK_PREFIX_CHANNEL_NAME = 'private-';
+const SEND_TO_MEMBERS_MESSAGE_HOOK_CHANNEL_NAME = 'new_messages.id_message_hook.';
+const USER_CHANNEL_NAME = 'user.';

@@ -1,18 +1,7 @@
 <?php
 
-use App\Broadcasting\NewMessageToMessageHookChannel;
+use App\Broadcasting\UserChannel;
 use Illuminate\Support\Facades\Broadcast;
-
-/*
-|--------------------------------------------------------------------------
-| Broadcast Channels
-|--------------------------------------------------------------------------
-|
-| Here you may register all of the event broadcasting channels that your
-| application supports. The given channel authorization callbacks are
-| used to check if an authenticated user can listen to the channel.
-|
-*/
 
 //Broadcast::channel(
 //    'new_messages.id_message_hook.{id_message_hook}',
@@ -20,3 +9,8 @@ use Illuminate\Support\Facades\Broadcast;
 //    ['guards' => ['api'], 'middleware' => 'auth:api']
 //);
 
+Broadcast::channel(
+    'user.{id_user}',
+    UserChannel::class,
+    ['guards' => ['api'], 'middleware' => 'auth:api']
+);

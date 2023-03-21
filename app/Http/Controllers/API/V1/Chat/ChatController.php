@@ -4,7 +4,8 @@ namespace App\Http\Controllers\API\V1\Chat;
 
 use App\Enums\MessageHookTypeEnum;
 use App\Enums\MessageTypeEnum;
-use App\Events\SendMessageEvent;
+use App\Events\SendToMembersMessageHookEvent;
+use App\Events\UserNewConversationsEvents;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Chat\GetMessagesRequest;
 use App\Http\Requests\Chat\SendMessageRequest;
@@ -14,6 +15,7 @@ use App\Http\Resources\V1\Chat\MessageResource;
 use App\Models\Message;
 use App\Models\MessageHook;
 use App\Models\MessageHookMembers;
+use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +40,9 @@ class ChatController extends Controller
                 'id_message_hook' => $id_message_hook,
                 'id_user' => $id_user,
             ]);
+
+            // TODO - add event for send PushNotification
+            // UserNewConversationsEvents
         }
         return $id_message_hook;
     }
@@ -52,6 +57,7 @@ class ChatController extends Controller
         DB::beginTransaction();
         try {
             // if id_message_hook has added, just send message
+            $id_users = [];
             if(!isset($id_message_hook) || $id_message_hook == null){
                 $id_users = [
                     $current_user->id_user,
@@ -68,8 +74,18 @@ class ChatController extends Controller
                 'context' => $context,
             ]);
 
-            // TODO - add event for send PushNotification
-            event(new SendMessageEvent($message));
+            // broadcast message to Users or Members_message_hook
+            if(empty($id_users)){
+                // TODO - add event for send PushNotification
+                event(new SendToMembersMessageHookEvent($message));
+            }else{
+                // TODO - add event for send PushNotification
+                $getUsers = User::whereIn('id_user', $id_users)->get();
+                if($getUsers->count()){
+                    foreach ($getUsers as $user)
+                        event(new UserNewConversationsEvents($user, $message));
+                }
+            }
 
             // set data to response
             $data = new MessageResource($message);

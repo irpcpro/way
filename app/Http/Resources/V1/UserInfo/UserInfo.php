@@ -30,12 +30,13 @@ class UserInfo extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $gender = $this->gender?->name;
         $data = [
             'id_user' => $this->id_user,
             'name' => $this->name,
             'username' => $this->username?? null,
             'gender' => $this->gender?->value,
-            'gender_name' => strtolower($this->gender?->name),
+            'gender_name' => $gender ? strtolower($gender) : null,
             'avatar' => new AvatarResource($this->avatar),
         ];
 

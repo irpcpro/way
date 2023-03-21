@@ -46,13 +46,14 @@ class ContactUserInfoResource extends JsonResource
 
         $_name = $this->contact_user_name != null ? $this->contact_user_name : $get_contact_user->name;
 
+        $gender = $get_contact_user->gender?->name;
         $data = [
             'id_contact' => $this->id_contact,
             'id_user' => $get_contact_user->id_user,
             'name' => $_name,
             'username' => $get_contact_user->username?? null,
             'gender' => $get_contact_user->gender?->value,
-            'gender_name' => strtolower($get_contact_user->gender?->name),
+            'gender_name' => $gender ? strtolower($gender) : null,
             'avatar' => new AvatarResource($get_contact_user->avatar),
         ];
 

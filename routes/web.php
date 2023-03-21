@@ -1,6 +1,7 @@
 <?php
 
-use App\Events\SendMessageEvent;
+use App\Events\SendToMembersMessageHookEvent;
+use App\Events\UserNewConversationsEvents;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,5 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+//    event(new UserNewConversationsEvents(\App\Models\User::where('id_user', 1)->first()));
 
 });
