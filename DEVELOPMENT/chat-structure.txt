@@ -1,0 +1,65 @@
+MessageHooks
+	* id_message_hook
+	type (private, group)
+	created_at
+	updated_at
+
+MessageHookMembers
+	* id_message_hook_member
+	id_user
+	id_message_hook
+	created_at
+	updated_at
+
+messages
+	* id_message
+	id_user
+	id_message_hook
+	type
+	context
+	created_at
+	updated_at
+
+messages_seens
+	* id_message_seen
+	id_message
+	id_user
+	created_at
+	updated_at
+
+-------------
+Enum message hook type
+	private=1
+	group=2
+
+Enum message type
+	text=1
+-------------
+
+****************** Features ******************
+
+
+
+
+message_attachments
+	* id_message_attachment
+	id_message
+	file_name
+	extension
+	path
+	size
+	created_at
+	updated_at
+
+message_type_group_information
+	* id_message_type_group_information
+	title
+	image
+	created_at
+	updated_at
+
+message_hooks_blocks
+	* id_message_hooks_blocks
+	id_message_hook
+	created_at
+	updated_at

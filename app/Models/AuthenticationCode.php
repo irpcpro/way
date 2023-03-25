@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,21 @@ class AuthenticationCode extends Model
         'code',
         'expired',
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
+    ];
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format(MODELS_CREATED_AT_FORMAT);
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format(MODELS_CREATED_AT_FORMAT);
+    }
 
     public function scopeNotExpired(Builder $query): void
     {

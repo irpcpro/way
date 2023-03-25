@@ -2,14 +2,14 @@
 
 namespace App\Http\Resources\V1\Chat;
 
-use App\Models\Message;
+use App\Models\MessageSeen;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MessageResource extends JsonResource
+class MessageSeenResource extends JsonResource
 {
 
-    public function __construct(Message $resource)
+    public function __construct(MessageSeen $resource)
     {
         parent::__construct($resource);
     }
@@ -21,18 +21,12 @@ class MessageResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $seen = MessageSeenResource::collection($this->seen);
-        $seen = $seen->toArray($request);
-
         return [
-            'id_message' => $this->id_message,
-            'id_message_hook' => $this->id_message_hook,
-            'id_user' => $this->id_user,
-            'context' => $this->context,
+            'id_message_seen' => $this->id_message_seen,
+            'id_message' => $this->id_message_seen,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'type' => $this->type,
-            'seen' => $seen,
+            'user' => $this->user,
         ];
     }
 }

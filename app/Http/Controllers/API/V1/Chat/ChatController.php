@@ -8,6 +8,7 @@ use App\Events\SendToMembersMessageHookEvent;
 use App\Events\UserNewConversationsEvents;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Chat\GetMessagesRequest;
+use App\Http\Requests\Chat\SeenMessageRequest;
 use App\Http\Requests\Chat\SendMessageRequest;
 use App\Http\Resources\V1\Chat\GetMessagesCollection;
 use App\Http\Resources\V1\Chat\ListChatsResource;
@@ -15,6 +16,7 @@ use App\Http\Resources\V1\Chat\MessageResource;
 use App\Models\Message;
 use App\Models\MessageHook;
 use App\Models\MessageHookMembers;
+use App\Models\MessageSeen;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
@@ -141,6 +143,26 @@ class ChatController extends Controller
         $data = array_values($data);
 
         APIResponse('data received.', 200, true)->setData($data)->send();
+    }
+
+    public function seenMessages(SeenMessageRequest $request)
+    {
+        $id_messages = $request->validated('id_messages');
+        $current_user_id = auth()->user()->id_user;
+        $data = [];
+
+        // prepare data
+        foreach ($id_messages as $id_message){
+            $data[] = [
+                'id_message' => $id_message,
+                'id_user' => $current_user_id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+        MessageSeen::insertOrIgnore($data);
+
+        APIResponse('data inserted', 200, true)->send();
     }
 
 }

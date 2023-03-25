@@ -58,9 +58,13 @@ class Avatar extends Model
         return asset($this->full_path);
     }
 
-    public function getCreatedAtAttribute($date): string
+    public function getCreatedAtAttribute($date)
     {
-        return Carbon::make($date)->format(GENERAL_DATE_TIME_FORMAT);
+        return Carbon::parse($date)->format(MODELS_CREATED_AT_FORMAT);
     }
 
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format(MODELS_CREATED_AT_FORMAT);
+    }
 }

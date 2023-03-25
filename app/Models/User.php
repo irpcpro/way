@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\GenderEnum;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -67,7 +68,19 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'gender' => GenderEnum::class,
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
     ];
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format(MODELS_CREATED_AT_FORMAT);
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format(MODELS_CREATED_AT_FORMAT);
+    }
 
     public function getNameAttribute()
     {

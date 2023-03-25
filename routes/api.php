@@ -65,6 +65,7 @@ Route::namespace('V1')->prefix('v1')->group(function () {
                 'offset' => '[0-9]+'
             ]);
             Route::get('get-list-chats', 'getListChats');
+            Route::post('seen-messages', 'seenMessages');
         });
 
     });

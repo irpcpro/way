@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2023 at 05:33 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Mar 25, 2023 at 07:17 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `authentication_codes` (
   `id_authentication_code` bigint(20) UNSIGNED NOT NULL,
   `id_user` bigint(20) UNSIGNED NOT NULL,
-  `code` varchar(255) NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expired` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -51,7 +51,12 @@ INSERT INTO `authentication_codes` (`id_authentication_code`, `id_user`, `code`,
 (8, 1, '11111', 1, '2023-03-21 16:07:13', '2023-03-21 16:07:15'),
 (9, 1, '11111', 1, '2023-03-21 16:07:26', '2023-03-21 16:07:27'),
 (10, 6, '11111', 1, '2023-03-21 16:20:23', '2023-03-21 16:20:29'),
-(11, 7, '11111', 1, '2023-03-21 16:22:46', '2023-03-21 16:22:51');
+(11, 7, '11111', 1, '2023-03-21 16:22:46', '2023-03-21 16:22:51'),
+(12, 1, '11111', 1, '2023-03-23 10:49:52', '2023-03-23 10:49:58'),
+(13, 7, '11111', 1, '2023-03-23 10:50:57', '2023-03-23 10:51:05'),
+(14, 8, '11111', 1, '2023-03-23 10:51:33', '2023-03-23 10:51:40'),
+(15, 1, '11111', 1, '2023-03-25 11:26:27', '2023-03-25 11:26:31'),
+(16, 1, '11111', 0, '2023-03-25 11:26:53', '2023-03-25 11:26:53');
 
 -- --------------------------------------------------------
 
@@ -61,9 +66,9 @@ INSERT INTO `authentication_codes` (`id_authentication_code`, `id_user`, `code`,
 
 CREATE TABLE `avatars` (
   `id_avatar` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `extension` varchar(255) NOT NULL,
-  `path` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `extension` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `width` int(11) NOT NULL,
   `height` int(11) NOT NULL,
   `id_user` bigint(20) UNSIGNED NOT NULL,
@@ -91,7 +96,7 @@ CREATE TABLE `contacts` (
   `id_user` bigint(20) UNSIGNED NOT NULL,
   `contact_user_id` bigint(20) UNSIGNED NOT NULL,
   `contact_user_mobile` tinyint(1) NOT NULL DEFAULT 0,
-  `contact_user_name` varchar(255) DEFAULT NULL,
+  `contact_user_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -111,11 +116,11 @@ INSERT INTO `contacts` (`id_contact`, `id_user`, `contact_user_id`, `contact_use
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -130,7 +135,7 @@ CREATE TABLE `messages` (
   `id_user` bigint(20) UNSIGNED NOT NULL,
   `id_message_hook` bigint(20) UNSIGNED NOT NULL,
   `type` int(11) NOT NULL,
-  `context` varchar(255) NOT NULL,
+  `context` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -194,7 +199,11 @@ INSERT INTO `messages` (`id_message`, `id_user`, `id_message_hook`, `type`, `con
 (74, 5, 46, 1, 'Hello my friend ...', '2023-03-21 16:17:08', '2023-03-21 16:17:08'),
 (75, 5, 46, 1, 'Hello my friend ...', '2023-03-21 16:20:14', '2023-03-21 16:20:14'),
 (76, 6, 47, 1, 'Hello ...', '2023-03-21 16:20:48', '2023-03-21 16:20:48'),
-(77, 7, 48, 1, 'Hiiii', '2023-03-21 16:23:11', '2023-03-21 16:23:11');
+(77, 7, 48, 1, 'Hiiii', '2023-03-21 16:23:11', '2023-03-21 16:23:11'),
+(78, 8, 49, 1, 'Hello my friend ...', '2023-03-23 10:51:46', '2023-03-23 10:51:46'),
+(81, 1, 20, 1, 'hello back ...', '2023-03-25 14:49:27', '2023-03-25 14:49:27'),
+(82, 1, 20, 1, 'hello back ...', '2023-03-25 14:58:16', '2023-03-25 14:58:16'),
+(83, 2, 50, 1, 'test', '2023-03-25 14:58:16', '2023-03-25 14:58:16');
 
 -- --------------------------------------------------------
 
@@ -220,7 +229,8 @@ INSERT INTO `message_hooks` (`id_message_hook`, `type`, `created_at`, `updated_a
 (44, 1, '2023-03-16 13:50:58', '2023-03-16 13:50:58'),
 (46, 1, '2023-03-21 16:17:08', '2023-03-21 16:17:08'),
 (47, 1, '2023-03-21 16:20:48', '2023-03-21 16:20:48'),
-(48, 1, '2023-03-21 16:23:11', '2023-03-21 16:23:11');
+(48, 1, '2023-03-21 16:23:11', '2023-03-21 16:23:11'),
+(49, 1, '2023-03-23 10:51:46', '2023-03-23 10:51:46');
 
 -- --------------------------------------------------------
 
@@ -254,7 +264,36 @@ INSERT INTO `message_hook_members` (`id_message_hook_member`, `id_message_hook`,
 (35, 47, 6, '2023-03-21 16:20:48', '2023-03-21 16:20:48'),
 (36, 47, 1, '2023-03-21 16:20:48', '2023-03-21 16:20:48'),
 (37, 48, 7, '2023-03-21 16:23:11', '2023-03-21 16:23:11'),
-(38, 48, 1, '2023-03-21 16:23:11', '2023-03-21 16:23:11');
+(38, 48, 1, '2023-03-21 16:23:11', '2023-03-21 16:23:11'),
+(39, 49, 8, '2023-03-23 10:51:46', '2023-03-23 10:51:46'),
+(40, 49, 1, '2023-03-23 10:51:46', '2023-03-23 10:51:46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message_seens`
+--
+
+CREATE TABLE `message_seens` (
+  `id_message_seen` bigint(20) UNSIGNED NOT NULL,
+  `id_message` bigint(20) UNSIGNED NOT NULL,
+  `id_user` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `message_seens`
+--
+
+INSERT INTO `message_seens` (`id_message_seen`, `id_message`, `id_user`, `created_at`, `updated_at`) VALUES
+(1, 40, 1, '2023-03-25 17:14:19', '2023-03-25 17:16:58'),
+(2, 37, 1, '2023-03-25 17:11:59', '2023-03-25 17:11:59'),
+(73, 77, 1, '2023-03-25 17:20:34', '2023-03-25 17:20:34'),
+(74, 78, 1, '2023-03-25 17:20:34', '2023-03-25 17:20:34'),
+(75, 81, 1, '2023-03-25 17:20:45', '2023-03-25 17:20:45'),
+(78, 39, 1, '2023-03-25 17:20:57', '2023-03-25 17:20:57'),
+(80, 41, 1, '2023-03-25 17:21:08', '2023-03-25 17:21:08');
 
 -- --------------------------------------------------------
 
@@ -264,7 +303,7 @@ INSERT INTO `message_hook_members` (`id_message_hook_member`, `id_message_hook`,
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -282,7 +321,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2023_03_09_143635_create_contacts_table', 1),
 (9, '2023_03_10_200929_create_message_hook_members_table', 2),
 (11, '2023_03_10_200731_create_message_hooks_table', 3),
-(12, '2023_03_10_201042_create_messages_table', 4);
+(12, '2023_03_10_201042_create_messages_table', 4),
+(15, '2023_03_25_155035_create_message_seens_table', 5);
 
 -- --------------------------------------------------------
 
@@ -291,8 +331,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -304,11 +344,11 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `token` varchar(64) NOT NULL,
-  `abilities` text DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -323,12 +363,12 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `users` (
   `id_user` bigint(20) UNSIGNED NOT NULL,
-  `mobile` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `gender` varchar(255) DEFAULT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -344,7 +384,8 @@ INSERT INTO `users` (`id_user`, `mobile`, `name`, `username`, `password`, `gende
 (4, '09365371304', 'alex4', 'alitna4', NULL, '0', NULL, '2023-03-10 12:27:16', '2023-03-10 12:33:01'),
 (5, '09365371310', NULL, NULL, NULL, NULL, NULL, '2023-03-21 16:07:00', '2023-03-21 16:07:00'),
 (6, '09365371320', NULL, NULL, NULL, NULL, NULL, '2023-03-21 16:20:23', '2023-03-21 16:20:23'),
-(7, '09365371330', 'aleex 30', 'alitna30', NULL, '0', NULL, '2023-03-21 16:22:46', '2023-03-21 16:32:11');
+(7, '09365371330', 'aleex 30', 'alitna30', NULL, '0', NULL, '2023-03-21 16:22:46', '2023-03-21 16:32:11'),
+(8, '09365371340', NULL, NULL, NULL, NULL, NULL, '2023-03-23 10:51:33', '2023-03-23 10:51:33');
 
 --
 -- Indexes for dumped tables
@@ -394,6 +435,13 @@ ALTER TABLE `message_hook_members`
   ADD PRIMARY KEY (`id_message_hook_member`);
 
 --
+-- Indexes for table `message_seens`
+--
+ALTER TABLE `message_seens`
+  ADD PRIMARY KEY (`id_message_seen`),
+  ADD UNIQUE KEY `message_seens_id_message_id_user_unique` (`id_message`,`id_user`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -429,7 +477,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `authentication_codes`
 --
 ALTER TABLE `authentication_codes`
-  MODIFY `id_authentication_code` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_authentication_code` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `avatars`
@@ -453,25 +501,31 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id_message` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id_message` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `message_hooks`
 --
 ALTER TABLE `message_hooks`
-  MODIFY `id_message_hook` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id_message_hook` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `message_hook_members`
 --
 ALTER TABLE `message_hook_members`
-  MODIFY `id_message_hook_member` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_message_hook_member` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT for table `message_seens`
+--
+ALTER TABLE `message_seens`
+  MODIFY `id_message_seen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -483,7 +537,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

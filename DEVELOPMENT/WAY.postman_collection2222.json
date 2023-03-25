@@ -813,6 +813,57 @@
 					"response": []
 				},
 				{
+					"name": "seen message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_messages\": [\r\n        81,\r\n        39,\r\n        40\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/chat/seen-messages",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"chat",
+								"seen-messages"
+							]
+						},
+						"description": "if id_message_hook is entered, it will be validated [true or false].\n\nid_message_hook be null, id_user will validated."
+					},
+					"response": []
+				},
+				{
 					"name": "get messages",
 					"request": {
 						"auth": {
@@ -851,7 +902,8 @@
 								"20",
 								"56"
 							]
-						}
+						},
+						"description": "StartFragment\n\napi/v1/chat/get-messages/20/56\n\n20 = id_message_hook \\[required\\]\n\n56 = offset to get messages before this id_message \\[optional\\]\n\nEndFragment"
 					},
 					"response": []
 				},

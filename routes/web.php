@@ -18,5 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
 //    event(new UserNewConversationsEvents(\App\Models\User::where('id_user', 1)->first()));
+//    \App\Models\MessageSeen::create([
+//        'id_message' => 40,
+//        'id_user' => 1
+//    ]);
+//    \App\Models\MessageSeen::create([
+//        'id_message' => 37,
+//        'id_user' => 1
+//    ]);
 
 });
