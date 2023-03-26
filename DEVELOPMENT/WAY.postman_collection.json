@@ -759,10 +759,10 @@
 			]
 		},
 		{
-			"name": "Chat",
+			"name": "Message",
 			"item": [
 				{
-					"name": "send message",
+					"name": "send",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -808,12 +808,97 @@
 								"send-message"
 							]
 						},
-						"description": "if id_message_hook is entered, it will be validated [true or false].\n\nid_message_hook be null, id_user will validated."
+						"description": "if id_message_hook is entered, it will be validated \\[true or false\\].\n\nid_message_hook be null, id_user will validated.\n\ncontext limit character: 500"
 					},
 					"response": []
 				},
 				{
-					"name": "seen message",
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/message/get/20/56",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"message",
+								"get",
+								"20",
+								"56"
+							]
+						},
+						"description": "StartFragment\n\napi/v1/chat/get-messages/20/56\n\n20 = id_message_hook \\[required\\]\n\n56 = offset to get messages before this id_message \\[optional\\]\n\nEndFragment"
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/message/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"message",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "seen",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -848,103 +933,74 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/v1/chat/seen-messages",
+							"raw": "{{base_url}}/api/v1/message/seen",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"chat",
-								"seen-messages"
-							]
-						},
-						"description": "if id_message_hook is entered, it will be validated [true or false].\n\nid_message_hook be null, id_user will validated."
-					},
-					"response": []
-				},
-				{
-					"name": "get messages",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/v1/chat/get-messages/20/56",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"chat",
-								"get-messages",
-								"20",
-								"56"
-							]
-						},
-						"description": "StartFragment\n\napi/v1/chat/get-messages/20/56\n\n20 = id_message_hook \\[required\\]\n\n56 = offset to get messages before this id_message \\[optional\\]\n\nEndFragment"
-					},
-					"response": []
-				},
-				{
-					"name": "get list chats",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/v1/chat/get-list-chats",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"chat",
-								"get-list-chats"
+								"message",
+								"seen"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "attachment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachment",
+									"type": "file",
+									"src": "/C:/Users/IRPCPRO/Pictures/p.jpg"
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/message/attachment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"message",
+								"attachment"
+							]
+						},
+						"description": "type = \\[\n\nimage = 1,\n\n\\]"
 					},
 					"response": []
 				}
