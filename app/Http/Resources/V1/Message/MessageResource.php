@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\Chat;
+namespace App\Http\Resources\V1\Message;
 
 use App\Models\Message;
 use Illuminate\Http\Request;

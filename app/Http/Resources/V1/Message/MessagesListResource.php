@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources\V1\Chat;
+namespace App\Http\Resources\V1\Message;
 
 use App\Http\Resources\V1\User\UserInfo;
 use App\Models\MessageHook;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ListChatsResource extends JsonResource
+class MessagesListResource extends JsonResource
 {
 
     public function __construct(MessageHook $resource)

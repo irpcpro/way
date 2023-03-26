@@ -27,6 +27,16 @@ messages_seens
 	created_at
 	updated_at
 
+message_attachments
+	* id_message_attachment
+    id_message
+	type
+    name
+    extension
+    path
+	created_at
+	updated_at
+
 -------------
 Enum message hook type
 	private=1
@@ -34,6 +44,10 @@ Enum message hook type
 
 Enum message type
 	text=1
+	attachment=2
+
+Enum message Attachment type
+    image=1
 -------------
 
 ****************** Features ******************
@@ -41,15 +55,21 @@ Enum message type
 
 
 
-message_attachments
-	* id_message_attachment
-	id_message
-	file_name
-	extension
-	path
-	size
-	created_at
-	updated_at
+// TODO - **************************************************
+change name of model message_attachment -> attachment
+move attachment controller & resource & request directory
+add pivot table message_attachment
+add type to send_message (with its conditions: [
+    if it's text, context required,
+    if it's attachment, context not required
+        and id_attachment required
+])
+add attachment details to MessageResource
+add other attachment extensions
+// TODO - **************************************************
+
+
+
 
 message_type_group_information
 	* id_message_type_group_information

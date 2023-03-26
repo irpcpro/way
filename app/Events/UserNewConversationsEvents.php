@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Http\Resources\V1\Chat\NewMessageResource;
+use App\Http\Resources\V1\Message\MessageNewResource;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -32,7 +32,7 @@ class UserNewConversationsEvents implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        return (new NewMessageResource($this->message))->toArray(request());
+        return (new MessageNewResource($this->message))->toArray(request());
     }
 
     public function broadcastAs(): string

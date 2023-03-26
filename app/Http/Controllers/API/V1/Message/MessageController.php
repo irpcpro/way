@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\API\V1\Chat;
+namespace App\Http\Controllers\API\V1\Message;
 
 use App\Enums\MessageHookTypeEnum;
 use App\Enums\MessageTypeEnum;
 use App\Events\SendToMembersMessageHookEvent;
 use App\Events\UserNewConversationsEvents;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Chat\GetMessagesRequest;
-use App\Http\Requests\Chat\SeenMessageRequest;
-use App\Http\Requests\Chat\SendMessageRequest;
-use App\Http\Resources\V1\Chat\GetMessagesCollection;
-use App\Http\Resources\V1\Chat\ListChatsResource;
-use App\Http\Resources\V1\Chat\MessageResource;
+use App\Http\Requests\Message\MessageSendRequest;
+use App\Http\Requests\Message\MessagesGetRequest;
+use App\Http\Requests\Message\MessageSeenRequest;
+use App\Http\Resources\V1\Message\MessageResource;
+use App\Http\Resources\V1\Message\MessagesGetCollection;
+use App\Http\Resources\V1\Message\MessagesListResource;
 use App\Models\Message;
 use App\Models\MessageHook;
 use App\Models\MessageHookMembers;
@@ -23,8 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-
-class ChatController extends Controller
+class MessageController extends Controller
 {
 
     private function createHooksAndMembers(MessageHookTypeEnum $msgHookType, array $id_users): int
@@ -49,7 +48,7 @@ class ChatController extends Controller
         return $id_message_hook;
     }
 
-    public function sendMessage(SendMessageRequest $request)
+    public function send(MessageSendRequest $request)
     {
         $id_message_hook = $request->validated('id_message_hook');
         $id_user = $request->validated('id_user');
@@ -106,7 +105,7 @@ class ChatController extends Controller
         );
     }
 
-    public function getMessages(GetMessagesRequest $request, MessageHook $message_hook, $offset = null)
+    public function get(MessagesGetRequest $request, MessageHook $message_hook, $offset = null)
     {
         // get messages
         $messages = Message::query();
@@ -117,14 +116,14 @@ class ChatController extends Controller
         $messages = $messages->latest();
         $messages = $messages->take(PAGINATE_MESSAGE_LOAD);
         $messages = $messages->get();
-        $messages = new GetMessagesCollection($messages);
+        $messages = new MessagesGetCollection($messages);
         $messages = $messages->toArray($request);
 
         // return response
         APIResponse('messages received.', 200, true)->setData($messages)->send();
     }
 
-    public function getListChats(Request $request)
+    public function list(Request $request)
     {
         $current_user = auth()->user();
         $current_id_user = $current_user->id_user;
@@ -136,33 +135,13 @@ class ChatController extends Controller
         ]);
         $messages = $messages->get();
         $data = $messages->map(function($item) use ($request){
-            return (new ListChatsResource($item->message_hook))->toArray($request);
+            return (new MessagesListResource($item->message_hook))->toArray($request);
         });
         $data = $data->sortByDesc('created_at');
         $data = $data->toArray();
         $data = array_values($data);
 
         APIResponse('data received.', 200, true)->setData($data)->send();
-    }
-
-    public function seenMessages(SeenMessageRequest $request)
-    {
-        $id_messages = $request->validated('id_messages');
-        $current_user_id = auth()->user()->id_user;
-        $data = [];
-
-        // prepare data
-        foreach ($id_messages as $id_message){
-            $data[] = [
-                'id_message' => $id_message,
-                'id_user' => $current_user_id,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        }
-        MessageSeen::insertOrIgnore($data);
-
-        APIResponse('data inserted', 200, true)->send();
     }
 
 }

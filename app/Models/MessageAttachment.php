@@ -6,35 +6,22 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Avatar extends Model
+class MessageAttachment extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_avatar';
+    protected $primaryKey = 'id_message_attachment';
 
     protected $fillable = [
+        'type',
         'name',
         'extension',
         'path',
-        'width',
-        'height',
-        'id_user',
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
-    ];
-
-    protected $hidden = [
-        'id',
-        'name',
-        'extension',
-        'path',
-        'id_user',
-        'full_name',
-        'full_path',
-        'updated_at'
     ];
 
     protected $appends = [

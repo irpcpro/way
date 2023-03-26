@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Chat;
+namespace App\Http\Requests\Message;
 
 use App\Http\Requests\AppRequest;
+use function auth;
+use const CHAT_MESSAGE_CHARACTER_LIMIT;
 
-class SendMessageRequest extends AppRequest
+class MessageSendRequest extends AppRequest
 {
 
     public string $error_message_authorization = 'id_user or id_message_hook is required.';

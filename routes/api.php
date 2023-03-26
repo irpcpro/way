@@ -57,15 +57,27 @@ Route::namespace('V1')->prefix('v1')->group(function () {
             Route::delete('delete/{contact}', 'delete');
         });
 
-        // chat
-        Route::prefix('chat')->namespace('Chat')->controller('ChatController')->group(function(){
-            Route::post('send-message', 'sendMessage');
-            Route::get('get-messages/{message_hook}/{offset?}', 'getMessages')->where([
-                'message_hook' => '[0-9]+',
-                'offset' => '[0-9]+'
-            ]);
-            Route::get('get-list-chats', 'getListChats');
-            Route::post('seen-messages', 'seenMessages');
+        // message
+        Route::prefix('message')->namespace('Message')->group(function(){
+            // message
+            Route::controller('MessageController')->group(function(){
+                Route::post('send', 'send');
+                Route::get('get/{message_hook}/{offset?}', 'get')->where([
+                    'message_hook' => '[0-9]+',
+                    'offset' => '[0-9]+'
+                ]);
+                Route::get('list', 'list');
+            });
+
+            // seen
+            Route::controller('MessageSeenController')->group(function(){
+                Route::post('seen', 'seen');
+            });
+
+            // attachment
+            Route::controller('MessageAttachmentController')->group(function(){
+                Route::post('attachment', 'attachment');
+            });
         });
 
     });

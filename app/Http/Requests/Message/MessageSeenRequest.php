@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Chat;
+namespace App\Http\Requests\Message;
 
 use App\Http\Requests\AppRequest;
 use App\Models\Message;
+use function auth;
 
-class SeenMessageRequest extends AppRequest
+class MessageSeenRequest extends AppRequest
 {
 
     public function authorize(): bool

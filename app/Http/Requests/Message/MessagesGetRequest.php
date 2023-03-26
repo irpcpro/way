@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Chat;
+namespace App\Http\Requests\Message;
 
 use App\Http\Requests\AppRequest;
 use App\Models\Message;
-use App\Models\MessageHook;
+use function auth;
 
-class GetMessagesRequest extends AppRequest
+class MessagesGetRequest extends AppRequest
 {
 
     public string $error_message_authorization = 'error in input validations.';

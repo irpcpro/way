@@ -16,15 +16,30 @@ const AVATAR_FINAL_EXT = 'jpg';
 const AVATAR_FINAL_WIDTH = 800;
 const AVATAR_FINAL_HEIGHT = 800;
 const AVATAR_FINAL_QUALITY = 80;
+
 const AVATAR_SIZE = 2 * 1024; // MB
 const AVATAR_MIN_WiDTH = 450;
 const AVATAR_MIN_HEIGHT = 450;
+const ATTACHMENT_DIR_ACCESS = 0755;
+const ATTACHMENT_IMAGE_DIR_ACCESS = 0755;
+const ATTACHMENT_IMAGE_FINAL_EXT = 'jpg';
+const ATTACHMENT_IMAGE_FINAL_QUALITY = 80;
 const AVATAR_MIMES = [
     'jpeg',
     'jpg',
     'png'
 ];
+const ATTACHMENT_SIZE = 2 * 1024; // MB
+const ATTACHMENT_MIMES = [
+    'jpeg',
+    'jpg',
+    'png'
+];
+
 const AVATAR_DIR_NAME = UPLOAD_DIR_NAME . '/avatar';
+const ATTACHMENT_DIR_NAME = UPLOAD_DIR_NAME . '/attachment';
+const ATTACHMENT_IMAGE_DIR_NAME = ATTACHMENT_DIR_NAME . '/images';
+
 const USERNAME_ANONYMOUS = 'Anonymous';
 
 const CHAT_MESSAGE_CHARACTER_LIMIT = '500';

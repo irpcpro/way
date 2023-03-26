@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources\V1\Chat;
+namespace App\Http\Resources\V1\Message;
 
 use App\Http\Resources\V1\User\UserInfo;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class NewMessageResource extends JsonResource
+class MessageNewResource extends JsonResource
 {
 
     public function __construct(Message $resource)
