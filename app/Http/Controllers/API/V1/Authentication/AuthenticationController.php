@@ -14,12 +14,16 @@ class AuthenticationController
     public function send_code(SendCodeRequest $request)
     {
         $mobile = $request->validated()['mobile'];
+        $just_register = false;
+
         // create user
         $user = User::where('mobile', $mobile);
-        if(!$user->exists())
+        if(!$user->exists()){
             $user = User::create($request->validated());
-        else
+            $just_register = true;
+        }else{
             $user = $user->first();
+        }
 
         // check if user request is passed
         $auth_code = $user->authenticationCodes();
@@ -29,6 +33,7 @@ class AuthenticationController
             $data = [
                 'time_left' => $time_left,
                 'mobile' => $mobile,
+                'just_register' => $just_register
             ];
 
             // response
@@ -41,7 +46,8 @@ class AuthenticationController
 
             $data = [
                 'time_left' => AUTH_CODE_EXPIRE_TIME,
-                'mobile' => $request->validated('mobile')
+                'mobile' => $request->validated('mobile'),
+                'just_register' => $just_register
             ];
 
             // response
