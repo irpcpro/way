@@ -22,6 +22,7 @@ Route::get('/', function () {
 //        'id_message' => 40,
 //        'id_user' => 1
 //    ]);
+
 //    \App\Models\MessageSeen::create([
 //        'id_message' => 37,
 //        'id_user' => 1
