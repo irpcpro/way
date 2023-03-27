@@ -6,6 +6,7 @@ use App\Events\AuthenticationCodeEvent;
 use App\Http\Requests\Authentication\ConfirmationCodeRequest;
 use App\Http\Requests\Authentication\SendCodeRequest;
 use App\Models\User;
+use Carbon\Carbon;
 
 class AuthenticationController
 {
@@ -24,7 +25,7 @@ class AuthenticationController
         $auth_code = $user->authenticationCodes();
         $auth_code = $auth_code->getUserLastActiveCode();
         if($auth_code->exists()){
-            $time_left = $auth_code->first()->created_at->diffInSeconds(now()->subSecond(AUTH_CODE_EXPIRE_TIME));
+            $time_left = Carbon::parse($auth_code->first()->created_at)->diffInSeconds(now()->subSecond(AUTH_CODE_EXPIRE_TIME));
             $data = [
                 'time_left' => $time_left,
                 'mobile' => $mobile,
@@ -38,9 +39,14 @@ class AuthenticationController
             // send code
             event(new AuthenticationCodeEvent($user));
 
+            $data = [
+                'time_left' => AUTH_CODE_EXPIRE_TIME,
+                'mobile' => $request->validated('mobile')
+            ];
+
             // response
             $response = APIResponse('authentication code send successfully.', 200, true);
-            $response = $response->setData($request->validated());
+            $response = $response->setData($data);
             $response->send();
         }
     }

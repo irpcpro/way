@@ -13,7 +13,7 @@ class SendCodeRequest extends AppRequest
         return true;
     }
 
-    public function rules(): array
+    public function rules()
     {
         return [
             'mobile' => ['required', 'bail', new MobileRule],
