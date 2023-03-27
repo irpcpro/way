@@ -54,6 +54,8 @@ class MessageController extends Controller
         $id_user = $request->validated('id_user');
         $context = $request->validated('context');
         $current_user = auth()->user();
+        $type = $request->validated('type');
+        $id_attachment = $request->validated('id_attachment');
 
         DB::beginTransaction();
         try {
@@ -71,9 +73,14 @@ class MessageController extends Controller
             $message = Message::create([
                 'id_user' => $current_user->id_user,
                 'id_message_hook' => $id_message_hook,
-                'type' => MessageTypeEnum::TEXT,
+                'type' => $type,
                 'context' => $context,
             ]);
+
+            // add attachment to pivot if type message is attachment
+            if($type == MessageTypeEnum::ATTACHMENT->value){
+                $message->attachments()->attach($id_attachment);
+            }
 
             // broadcast message to Users or Members_message_hook
             if(empty($id_users)){

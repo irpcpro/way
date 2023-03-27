@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Message;
+namespace App\Http\Requests\Attachment;
 
-use App\Enums\MessageAttachmentTypeEnum;
+use App\Enums\AttachmentTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use const ATTACHMENT_SIZE;
 
-class MessageAttachmentRequest extends FormRequest
+class AttachmentRequest extends FormRequest
 {
 
     public $mimes;
@@ -35,7 +36,7 @@ class MessageAttachmentRequest extends FormRequest
                 'mimes:' . $this->mimes,
                 'max:' . $this->size,
             ],
-            'type' => ['required', Rule::enum(MessageAttachmentTypeEnum::class)]
+            'type' => ['required', Rule::enum(AttachmentTypeEnum::class)]
         ];
     }
 

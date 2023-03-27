@@ -789,7 +789,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_message_hook\": 20,\r\n    \"id_user\": 2,\r\n    \"context\": \"Hello my friend ...\"\r\n}",
+							"raw": "{\r\n    \"id_message_hook\": 20,\r\n    \"id_user\": 2,\r\n    \"context\": \"this caption\",\r\n    \"type\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -797,18 +797,18 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/v1/chat/send-message",
+							"raw": "{{base_url}}/api/v1/message/send",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"chat",
-								"send-message"
+								"message",
+								"send"
 							]
 						},
-						"description": "if id_message_hook is entered, it will be validated \\[true or false\\].\n\nid_message_hook be null, id_user will validated.\n\ncontext limit character: 500"
+						"description": "if id_message_hook is entered, it will be validated \\[true or false\\].\n\nid_message_hook be null, id_user will validated.\n\ncontext limit character: 500\n\nif message type is attachment \\[2\\] id_attachment is required and context could be null."
 					},
 					"response": []
 				},
@@ -946,9 +946,14 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Attachment",
+			"item": [
 				{
-					"name": "attachment",
+					"name": "upload",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -989,15 +994,15 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/api/v1/message/attachment",
+							"raw": "{{base_url}}/api/v1/attachment/upload",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"message",
-								"attachment"
+								"attachment",
+								"upload"
 							]
 						},
 						"description": "type = \\[\n\nimage = 1,\n\n\\]"

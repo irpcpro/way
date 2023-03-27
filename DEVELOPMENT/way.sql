@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2023 at 07:17 PM
+-- Generation Time: Mar 27, 2023 at 09:46 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -20,6 +20,52 @@ SET time_zone = "+00:00";
 --
 -- Database: `way`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attachments`
+--
+
+CREATE TABLE `attachments` (
+  `id_attachment` bigint(20) UNSIGNED NOT NULL,
+  `id_user` bigint(20) UNSIGNED NOT NULL,
+  `type` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `extension` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `size_b` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `attachments`
+--
+
+INSERT INTO `attachments` (`id_attachment`, `id_user`, `type`, `name`, `extension`, `path`, `size_b`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '1679902971r97203', 'jpg', '/uploads/attachment/images/', '100224', '2023-03-27 07:42:52', '2023-03-27 07:42:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attachment_message`
+--
+
+CREATE TABLE `attachment_message` (
+  `id_attachment_message` bigint(20) UNSIGNED NOT NULL,
+  `id_attachment` bigint(20) UNSIGNED NOT NULL,
+  `id_message` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `attachment_message`
+--
+
+INSERT INTO `attachment_message` (`id_attachment_message`, `id_attachment`, `id_message`, `created_at`, `updated_at`) VALUES
+(1, 1, 124, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -203,7 +249,11 @@ INSERT INTO `messages` (`id_message`, `id_user`, `id_message_hook`, `type`, `con
 (78, 8, 49, 1, 'Hello my friend ...', '2023-03-23 10:51:46', '2023-03-23 10:51:46'),
 (81, 1, 20, 1, 'hello back ...', '2023-03-25 14:49:27', '2023-03-25 14:49:27'),
 (82, 1, 20, 1, 'hello back ...', '2023-03-25 14:58:16', '2023-03-25 14:58:16'),
-(83, 2, 50, 1, 'test', '2023-03-25 14:58:16', '2023-03-25 14:58:16');
+(83, 2, 50, 1, 'test', '2023-03-25 14:58:16', '2023-03-25 14:58:16'),
+(84, 1, 20, 1, 'HI again', '2023-03-26 19:58:52', '2023-03-26 19:58:52'),
+(121, 1, 20, 2, '', '2023-03-27 07:14:25', '2023-03-27 07:14:25'),
+(123, 1, 20, 2, '', '2023-03-27 07:35:16', '2023-03-27 07:35:16'),
+(124, 1, 20, 2, 'this caption', '2023-03-27 07:44:39', '2023-03-27 07:44:39');
 
 -- --------------------------------------------------------
 
@@ -322,7 +372,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2023_03_10_200929_create_message_hook_members_table', 2),
 (11, '2023_03_10_200731_create_message_hooks_table', 3),
 (12, '2023_03_10_201042_create_messages_table', 4),
-(15, '2023_03_25_155035_create_message_seens_table', 5);
+(15, '2023_03_25_155035_create_message_seens_table', 5),
+(25, '2023_03_27_000930_create_attachments_table', 6),
+(26, '2023_03_27_103415_create_attachment_message_table', 6);
 
 -- --------------------------------------------------------
 
@@ -390,6 +442,20 @@ INSERT INTO `users` (`id_user`, `mobile`, `name`, `username`, `password`, `gende
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `attachments`
+--
+ALTER TABLE `attachments`
+  ADD PRIMARY KEY (`id_attachment`);
+
+--
+-- Indexes for table `attachment_message`
+--
+ALTER TABLE `attachment_message`
+  ADD PRIMARY KEY (`id_attachment_message`),
+  ADD KEY `attachment_message_id_attachment_foreign` (`id_attachment`),
+  ADD KEY `attachment_message_id_message_foreign` (`id_message`);
 
 --
 -- Indexes for table `authentication_codes`
@@ -474,6 +540,18 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `attachments`
+--
+ALTER TABLE `attachments`
+  MODIFY `id_attachment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `attachment_message`
+--
+ALTER TABLE `attachment_message`
+  MODIFY `id_attachment_message` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `authentication_codes`
 --
 ALTER TABLE `authentication_codes`
@@ -501,7 +579,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id_message` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id_message` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `message_hooks`
@@ -519,13 +597,13 @@ ALTER TABLE `message_hook_members`
 -- AUTO_INCREMENT for table `message_seens`
 --
 ALTER TABLE `message_seens`
-  MODIFY `id_message_seen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id_message_seen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -538,6 +616,17 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `users`
   MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `attachment_message`
+--
+ALTER TABLE `attachment_message`
+  ADD CONSTRAINT `attachment_message_id_attachment_foreign` FOREIGN KEY (`id_attachment`) REFERENCES `attachments` (`id_attachment`),
+  ADD CONSTRAINT `attachment_message_id_message_foreign` FOREIGN KEY (`id_message`) REFERENCES `messages` (`id_message`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

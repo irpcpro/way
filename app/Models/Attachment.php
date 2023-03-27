@@ -5,17 +5,21 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class MessageAttachment extends Model
+class Attachment extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_message_attachment';
+    protected $primaryKey = 'id_attachment';
 
     protected $fillable = [
+        'id_user',
         'type',
         'name',
         'extension',
+        'size_b',
         'path',
     ];
 
@@ -53,6 +57,16 @@ class MessageAttachment extends Model
     public function geturlAttribute(): string
     {
         return asset($this->full_path);
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'id_user', 'id_user');
+    }
+
+    public function messages(): BelongsToMany
+    {
+        return $this->belongsToMany(Message::class, 'attachment_message', 'id_attachment', 'id_message');
     }
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum MessageAttachmentTypeEnum:int
+enum AttachmentTypeEnum:int
 {
     case IMAGE = 1;
 }

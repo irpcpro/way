@@ -73,11 +73,11 @@ Route::namespace('V1')->prefix('v1')->group(function () {
             Route::controller('MessageSeenController')->group(function(){
                 Route::post('seen', 'seen');
             });
+        });
 
-            // attachment
-            Route::controller('MessageAttachmentController')->group(function(){
-                Route::post('attachment', 'attachment');
-            });
+        // attachment
+        Route::prefix('attachment')->namespace('Attachment')->controller('AttachmentController')->group(function(){
+            Route::post('upload', 'upload');
         });
 
     });
