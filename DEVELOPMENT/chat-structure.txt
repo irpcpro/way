@@ -55,8 +55,6 @@ Enum Attachment type
 -------------
 
 
-
-
 ****************** Features ******************
 
 message_type_group_information
