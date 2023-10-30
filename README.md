@@ -1,2 +1,2 @@
 WAY Application <br/>
-online chat
+Online Chat
